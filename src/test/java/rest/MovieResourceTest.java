@@ -7,7 +7,6 @@ import static io.restassured.RestAssured.given;
 import io.restassured.parsing.Parser;
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,6 +20,7 @@ import static org.hamcrest.Matchers.hasItems;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import utils.EMF_Creator.DbSelector;
 import utils.EMF_Creator.Strategy;
@@ -152,6 +152,7 @@ public class MovieResourceTest {
     } 
 
 //Create a test for the an endpoint:  api/movie/{id} and verify that you get the expected Movie 
+    @Disabled
     @Test
     public void testGetID() throws Exception {
         List<Movie> list = new ArrayList();
