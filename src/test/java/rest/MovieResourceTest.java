@@ -83,7 +83,10 @@ public class MovieResourceTest {
         }
     }
     
-//Create a test that verifies that the server is up (similar to the “Hello World” response)
+    /**
+     * Create a test that verifies that the server is up (similar to the 
+     * “Hello World” response)
+     */
     @Test
     public void testServerIsUp() {
         System.out.println("Testing is server UP");
@@ -94,7 +97,11 @@ public class MovieResourceTest {
                 .statusCode(200);
     }
 
-    //This test assumes the database contains two rows
+    /**
+     * This test assumes the database contains two rows
+     * 
+     * @throws Exception 
+     */
     @Test
     public void testDummyMsg() throws Exception {
         given()
@@ -105,7 +112,12 @@ public class MovieResourceTest {
                 .body("msg", equalTo("Hello World"));
     }
 
-//Create a test for the endpoint: api/movie/count (expected result, depends on how many movies you created before each test ).
+    /**
+     * Create a test for the endpoint: api/movie/count (expected result, 
+     * depends on how many movies you created before each test ).
+     * 
+     * @throws Exception 
+     */
     @Test
     public void testCount() throws Exception {
         given()
@@ -116,8 +128,15 @@ public class MovieResourceTest {
                 .body("count", equalTo(2));
     }
     
-//Create a test for the endpoint api/movie/all and assert that the body contains an actor named Freddy Frøstrup (or just an actor added by your BEFORE code)
-    // OBS Jeg brugte andre fields end i opgaven. Så har søgt på årstal istedet
+    /**
+     * Create a test for the endpoint api/movie/all and assert that the body 
+     * contains an actor named Freddy Frøstrup (or just an actor added by your 
+     * BEFORE code)
+     * 
+     * OBS Jeg brugte andre fields end i opgaven. Så har søgt på årstal istedet
+     * 
+     * @throws Exception 
+     */
     @Test
     public void testGetAll() throws Exception {
         given()
@@ -129,8 +148,14 @@ public class MovieResourceTest {
         
     } 
             
-//Create a test for an endpoint: api/movie/name/{name}. Use a name you know exists, and (for red students) also try with a name that does not exist (obviously this requires that you know what you return in such a case)
-    //OBS søger på film titel i stedet for skuespiller navn
+    /**
+     * Create a test for an endpoint: api/movie/name/{name}. Use a name you know
+     * exists, and (for red students) also try with a name that does not exist
+     * (obviously this requires that you know what you return in such a case)
+     * 
+     * OBS søger på film titel i stedet for skuespiller navn
+     * @throws Exception 
+     */
     @Test
     public void testGetName() throws Exception {
         given()
@@ -151,7 +176,10 @@ public class MovieResourceTest {
                 .body("list.title", hasItems(list.toArray()));
     } 
 
-//Create a test for the an endpoint:  api/movie/{id} and verify that you get the expected Movie 
+    /**
+     * Create a test for the an endpoint:  api/movie/{id} and verify that you get the expected Movie 
+     * @throws Exception 
+     */
     @Disabled
     @Test
     public void testGetID() throws Exception {
