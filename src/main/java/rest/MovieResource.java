@@ -16,6 +16,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Path("movies")
 public class MovieResource {
@@ -39,8 +40,10 @@ public class MovieResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getAllMovies() {
+//    public Response getAllMovies() {
         List<Movie> list = FACADE.allMovies();
         return GSON.toJson(new MovieDTO(list));
+//        return Response.ok().entity(GSON.toJson(new MovieDTO(list))).build();
     }
     
     @Path("count")
