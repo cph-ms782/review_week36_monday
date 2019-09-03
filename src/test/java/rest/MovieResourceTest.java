@@ -73,7 +73,8 @@ public class MovieResourceTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
+//            em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
+            em.createNativeQuery("DELETE FROM MOVIE").executeUpdate();
             em.persist(m1);
             em.persist(m2);
 
