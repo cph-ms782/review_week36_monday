@@ -204,6 +204,7 @@ public class MovieResourceTest {
         List<Movie> list = new ArrayList();
         MovieFacade FACADE = MovieFacade.getMovieFacade(emf);
         Movie g = FACADE.findByID(Long.valueOf(1));
+        // text in console to find DB id before text. Helps with debugging
         System.out.println("testGetID resultat: " + g.getId() +" " + g.getTitle());
         given()
                 .contentType("application/json")
