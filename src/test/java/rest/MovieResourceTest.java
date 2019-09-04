@@ -1,6 +1,10 @@
 package rest;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import dto.MovieDTO;
 import entities.Movie;
+import facades.MovieFacade;
 import utils.EMF_Creator;
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.given;
@@ -20,7 +24,6 @@ import static org.hamcrest.Matchers.hasItems;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import utils.EMF_Creator.DbSelector;
 import utils.EMF_Creator.Strategy;
@@ -38,7 +41,8 @@ public class MovieResourceTest {
     private static HttpServer httpServer;
     private static EntityManagerFactory emf;
     private final Movie m1 = new Movie("Some txt", 1978);
-    private final Movie m2 = new Movie("aaa", 1975);
+    private final Movie m2 = new Movie("aaaaaaaa", 1975);
+    private final Movie m3 = new Movie("bbbb", 1973);
 
     static HttpServer startServer() {
         ResourceConfig rc = ResourceConfig.forApplication(new ApplicationConfig());
@@ -77,19 +81,21 @@ public class MovieResourceTest {
             em.createNativeQuery("DELETE FROM MOVIE").executeUpdate();
             em.persist(m1);
             em.persist(m2);
+            em.persist(m3);
 
             em.getTransaction().commit();
         } finally {
             em.close();
         }
     }
-    
+
     /**
-     * Create a test that verifies that the server is up (similar to the 
-     * “Hello World” response)
+     * Create a test that verifies that the server is up (similar to the “Hello
+     * World” response)
      */
     @Test
     public void testServerIsUp() {
+        System.out.println("testServerIsUp");
         System.out.println("Testing is server UP");
         given()
                 .when()
@@ -100,11 +106,12 @@ public class MovieResourceTest {
 
     /**
      * This test assumes the database contains two rows
-     * 
-     * @throws Exception 
+     *
+     * @throws Exception
      */
     @Test
     public void testDummyMsg() throws Exception {
+        System.out.println("testDummyMsg");
         given()
                 .contentType("application/json")
                 .get("/movies/").then()
@@ -114,60 +121,66 @@ public class MovieResourceTest {
     }
 
     /**
-     * Create a test for the endpoint: api/movie/count (expected result, 
-     * depends on how many movies you created before each test ).
-     * 
-     * @throws Exception 
+     * Create a test for the endpoint: api/movie/count (expected result, depends
+     * on how many movies you created before each test ).
+     *
+     * @throws Exception
      */
     @Test
     public void testCount() throws Exception {
+        System.out.println("testCount");
         given()
                 .contentType("application/json")
                 .get("/movies/count").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("count", equalTo(2));
+                .body("count", equalTo(3));
     }
-    
+
     /**
-     * Create a test for the endpoint api/movie/all and assert that the body 
-     * contains an actor named Freddy Frøstrup (or just an actor added by your 
+     * Create a test for the endpoint api/movie/all and assert that the body
+     * contains an actor named Freddy Frøstrup (or just an actor added by your
      * BEFORE code)
-     * 
+     *
      * OBS Jeg brugte andre fields end i opgaven. Så har søgt på årstal istedet
-     * 
-     * @throws Exception 
+     *
+     * @throws Exception
      */
     @Test
     public void testGetAll() throws Exception {
+        System.out.println("testGetAll");
         given()
                 .contentType("application/json")
                 .get("/movies/all").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("list.year", hasItems(1975,1978));
-        
-    } 
-            
+                .body("list.year", hasItems(1975, 1978));
+
+    }
+
     /**
      * Create a test for an endpoint: api/movie/name/{name}. Use a name you know
      * exists, and (for red students) also try with a name that does not exist
      * (obviously this requires that you know what you return in such a case)
-     * 
+     *
      * OBS søger på film titel i stedet for skuespiller navn
-     * @throws Exception 
+     *
+     * @throws Exception
      */
     @Test
     public void testGetName() throws Exception {
+        System.out.println("testGetName");
         given()
                 .contentType("application/json")
-                .get("/movies/movie/aaa").then()
+                .get("/movies/movie/aaaaaaaa").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("list.title", hasItems("aaa"));
-    } 
+                .body("list.title", hasItems("aaaaaaaa"));
+    }
+
     @Test
     public void testGetWrongName() throws Exception {
+        System.out.println("testGetWrongName");
         List<Movie> list = new ArrayList();
         given()
                 .contentType("application/json")
@@ -175,22 +188,29 @@ public class MovieResourceTest {
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("list.title", hasItems(list.toArray()));
-    } 
+    }
 
     /**
-     * Create a test for the an endpoint:  api/movie/{id} and verify that you get the expected Movie 
-     * @throws Exception 
+     * Create a test for the an endpoint: api/movie/{id} and verify that you get
+     * the expected Movie
+     *
+     * @throws Exception
      */
-    @Disabled
+//    @Disabled
     @Test
     public void testGetID() throws Exception {
+        System.out.println("testGetID");
+        Gson GSON = new GsonBuilder().setPrettyPrinting().create();
         List<Movie> list = new ArrayList();
+        MovieFacade FACADE = MovieFacade.getMovieFacade(emf);
+        Movie g = FACADE.findByID(Long.valueOf(1));
+        System.out.println("testGetID resultat: " + g.getId() +" " + g.getTitle());
         given()
                 .contentType("application/json")
-                .get("/movies/15").then()
+                .get("/movies/1").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("list.id", equalTo(15));
-    } 
-    
+                .body("id", equalTo(1));
+    }
+
 }
