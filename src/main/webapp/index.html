@@ -10,15 +10,38 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <style>
+            .form{display: block;
+                  text-align: center;
+            }
+
+            form
+            {
+                display: inline-block;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;   
+            }
+            th, td{
+                text-align: left;
+                border: 1px solid #ddd;
+                padding: 8px;
+                width: 1px;
+            }
+        </style>
     </head>
     <body>
-        <form>
-            <input id="userID" type="text" name="user">
-            <button id="getUser">Get User</button>
-            <button id="getAllUsers">Get All</button>
-        </form> 
-        <div id="users" class="container"></div>
-        
+        <div class="form">
+            <form>
+                <input id="userID" type="text" name="user">
+                <button id="getUser">Get Movie</button>
+                <button id="getAllUsers">Get All Movies</button>
+            </form> 
+        </div>
+        <div class="form">
+            <div id="users" class="container tablewid"></div>
+        </div>
+
         <!-- henter javascript del -->
         <script src="Fetch.js"></script>
     </body>
