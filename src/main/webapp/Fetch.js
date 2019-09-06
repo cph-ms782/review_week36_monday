@@ -16,7 +16,6 @@ function getUser(e) {
     e.preventDefault();
     var ID = document.querySelector("#userID").value;
     let url = "/review_week36_monday/api/movies/" + ID;
-//    let url = "http://localhost:8080/review_week36_monday/api/movies/" + ID;
     console.log(url);
     fetch(url)
             .then(res => res.json()) //in flow1, just do it
@@ -39,7 +38,6 @@ function getUser(e) {
 function getAllUsers(e) {
     e.preventDefault();
     let url = "/review_week36_monday/api/movies/all"; 
-//    let url = "http://localhost:8080/review_week36_monday/api/movies/all"; 
     console.log(url);
     fetch(url)
             .then(res => res.json()) //in flow1, just do it
