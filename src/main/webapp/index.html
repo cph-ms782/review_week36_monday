@@ -1,10 +1,25 @@
 <!DOCTYPE html>
+<!--
+ * JPA, REST, Test, CI and Travis with our start code
+ * part 2
+-->
 <html>
     <head>
-        <title>Start Page</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <h1>08:51 3. sep change</h1>
+        <form>
+            <input id="userID" type="text" name="user">
+            <button id="getUser">Get User</button>
+            <button id="getAllUsers">Get All</button>
+        </form> 
+        <div id="users" class="container"></div>
+        
+        <!-- henter javascript del -->
+        <script src="Fetch.js"></script>
     </body>
 </html>
